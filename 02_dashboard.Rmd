@@ -1,0 +1,55 @@
+---
+title: "Sidebar"
+output: flexdashboard::flex_dashboard
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(here)
+library(conflicted)
+library(plotly)
+conflicts_prefer(dplyr::filter)
+iris <- read_rds(here("out","iris.rds"))
+```
+
+Inputs {.sidebar}
+-------------------------------------
+
+```{r}
+selectInput(
+  "species",
+  "Choose a species to plot: ",
+  unique(iris$species),
+  selected = unique(iris$species)[1]
+)
+selectInput(
+  "plot",
+  "Choose what you want to plot: ",
+  unique(iris$name),
+  selected = unique(iris$name)[1]
+)
+```
+ 
+Column
+-------------------------------------
+    
+### `r renderUI({input$species})`
+    
+```{r}
+renderPlotly({
+  iris$value[iris$species==input$species & iris$name==input$plot][[1]]
+})
+```
+    
+
+
+
+
+
+
+
+
+
+
+
