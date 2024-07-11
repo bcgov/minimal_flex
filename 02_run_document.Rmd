@@ -6,6 +6,7 @@ runtime: shiny
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
+library(tidyverse)
 library(here)
 library(conflicted)
 library(plotly)
